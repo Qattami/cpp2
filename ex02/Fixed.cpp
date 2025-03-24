@@ -27,7 +27,7 @@ void Fixed :: setRawBits( int const raw )
 }
 int Fixed :: getRawBits( void ) const
 {
-     std::cout << "getRawBits member function called" << std::endl;
+    // std::cout << "getRawBits member function called" << std::endl;
      return value;
 }
 
@@ -46,12 +46,12 @@ Fixed:: Fixed(const float number)
     std::cout << "Float constructor called" << std::endl;
     value = number * (1 << FractionalBits);
 }
-float Fixed:: toFloat( void ) const
+float Fixed:: toFloat() const
 {
     return((float)value / (1 << FractionalBits));
 }
 
-int Fixed:: toInt( void ) const
+int Fixed:: toInt() const
 {
     return(value >>FractionalBits);
 
@@ -106,6 +106,8 @@ Fixed Fixed::operator*(const Fixed& other) {
     return (Fixed(this->toFloat() * other.toFloat()));
 }
 
+
+
 Fixed Fixed::operator/(const Fixed& other) {
     return (Fixed(this->toFloat() / other.toFloat()));
 }
@@ -131,13 +133,26 @@ const Fixed& Fixed::max(const Fixed& n1,const Fixed& n2)
 }
 Fixed Fixed::operator++(int)
 {
-    Fixed tmp(*this);
+    Fixed tmp = *this;
     value++;
-    return(*this);
+    return(tmp);
 }
 
 Fixed& Fixed::operator++()
 {
     ++value;
+    return(*this);
+}
+
+Fixed Fixed::operator--(int)
+{
+    Fixed tmp = *this;
+    value--;
+    return(tmp);
+}
+
+Fixed& Fixed::operator--()
+{
+    --value;
     return(*this);
 }
